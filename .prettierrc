@@ -1,7 +1,12 @@
 {
   "semi": false,
   "singleQuote": true,
+  "jsxSingleQuote": true,
   "trailingComma": "es5",
   "tabWidth": 2,
-  "printWidth": 100
+  "printWidth": 100,
+  "organizeImportsSkipDestructiveCodeActions": true,
+  "plugins": [
+    "prettier-plugin-organize-imports"
+  ]
 }
