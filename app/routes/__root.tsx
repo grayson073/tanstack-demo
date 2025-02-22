@@ -1,5 +1,5 @@
+import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
-import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -24,12 +24,19 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+  const style = {
+    backgroundColor: '#000000',
+    margin: 0,
+    padding: 0,
+    height: '100%',
+  }
+
   return (
-    <html>
+    <html style={style}>
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body style={style}>
         {children}
         <Scripts />
       </body>
