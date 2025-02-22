@@ -18,4 +18,9 @@ export const SearchButton = styled(Button)`
   background-color: #0ef169;
   color: #000000;
   width: 100%;
+
+  &.Mui-disabled {
+    background-color: #9c9ca2;
+    color: #ffffff;
+  }
 `
