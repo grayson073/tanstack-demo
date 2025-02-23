@@ -4,6 +4,8 @@ export type ImgurImage = {
 }
 
 export type ImgurAlbum = {
+  cover: string
   id: string
   images: ImgurImage[]
+  title: string
 }

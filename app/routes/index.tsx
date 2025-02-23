@@ -2,15 +2,15 @@ import { useQuery } from '@tanstack/react-query'
 import { createFileRoute, useSearch } from '@tanstack/react-router'
 import { useState } from 'react'
 import { z } from 'zod'
-import { Results } from '../components/Results/Results'
-import { ResultsContainer, RootContainer, SearchContainer } from '../components/Root/Root.styled'
+import { Albums } from '../components/Albums/Albums'
+import { ResultsContainer, RootContainer, SearchBarContainer } from '../components/Root/Root.styled'
 import { Search } from '../components/Search/Search'
 
 export const Route = createFileRoute('/')({
   component: Root,
   validateSearch: z.object({
     query: z.string().optional().default(''),
-  }).parse,
+  }),
 })
 
 function Root() {
@@ -35,11 +35,11 @@ function Root() {
 
   return (
     <RootContainer>
-      <SearchContainer isExpanded={hasResults}>
-        <Search isLoading={isLoading} />
-      </SearchContainer>
+      <SearchBarContainer isExpanded={hasResults}>
+        <Search isLoading={isLoading} isRowLayout={hasResults} />
+      </SearchBarContainer>
       <ResultsContainer isExpanded={hasResults}>
-        <Results albums={data?.albums} />
+        <Albums albums={data?.albums} />
       </ResultsContainer>
     </RootContainer>
   )

@@ -6,9 +6,10 @@ import { SearchButton, SearchContainer, SearchInput } from './Search.styled'
 
 type SearchProps = {
   isLoading: boolean
+  isRowLayout: boolean
 }
 
-export const Search = ({ isLoading }: SearchProps) => {
+export const Search = ({ isLoading, isRowLayout }: SearchProps) => {
   const navigate = useNavigate({ from: rootRoute.id })
   const searchParams = useSearch({ from: rootRoute.id })
   const searchQuery = searchParams.query ?? ''
@@ -23,7 +24,7 @@ export const Search = ({ isLoading }: SearchProps) => {
   }
 
   return (
-    <SearchContainer>
+    <SearchContainer isRowLayout={isRowLayout}>
       <SearchInput
         inputRef={(input) => input && input.focus()}
         onChange={(e) => setQuery(e.target.value)}

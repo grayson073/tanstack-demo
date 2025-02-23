@@ -10,17 +10,18 @@ export const RootContainer = styled(Box)`
   height: 100%;
 `
 
-export const SearchContainer = styled.div<{ isExpanded: boolean }>`
-  transition: all 0.5s ease;
-  flex: ${({ isExpanded }) => (isExpanded ? '1' : '0.2')};
-  display: flex;
+export const SearchBarContainer = styled.div<{ isExpanded: boolean }>`
   align-items: ${({ isExpanded }) => (isExpanded ? 'center' : 'flex-end')};
+  display: flex;
+  flex: ${({ isExpanded }) => (isExpanded ? '1' : '0.1')};
+  height: 200px;
   justify-content: center;
   padding: 20px;
+  transition: all 0.5s ease;
 `
 
 export const ResultsContainer = styled.div<{ isExpanded: boolean }>`
-  transition: all 0.5s ease;
   flex: ${({ isExpanded }) => (isExpanded ? '4' : '0')};
   opacity: ${({ isExpanded }) => (isExpanded ? '1' : '0')};
+  transition: all 0.5s ease;
 `
