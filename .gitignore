@@ -4,3 +4,13 @@
 # Editor directories and files
 .idea
 .vscode
+
+# Environment
+.env
+
+# Build files
+.vinxi
+.output
+
+# Local data for offline testing
+/data
