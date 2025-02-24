@@ -1,12 +1,15 @@
+import { IconButton, InputAdornment } from '@mui/material'
 import { useNavigate, useSearch } from '@tanstack/react-router'
-import { Search as SearchIcon } from 'lucide-react'
-import React, { useState } from 'react'
+import { X } from 'lucide-react'
+import { Dispatch, KeyboardEvent, SetStateAction, useState } from 'react'
+import searchIcon from '../../assets/searchIcon.jpeg'
 import { Route as rootRoute } from '../../routes'
-import { SearchButton, SearchContainer, SearchInput } from './Search.styled'
+import { CustomSearchIcon, SearchButton, SearchContainer, SearchInput } from './Search.styled'
 
 type SearchProps = {
   isLoading: boolean
   isRowLayout: boolean
+  onClearQuery: Dispatch<SetStateAction<boolean>>
 }
 
 export const Search = ({ isLoading, isRowLayout }: SearchProps) => {
@@ -15,29 +18,52 @@ export const Search = ({ isLoading, isRowLayout }: SearchProps) => {
   const searchQuery = searchParams.query ?? ''
   const [query, setQuery] = useState(searchQuery)
 
+  const handleClearQuery = () => {
+    setQuery('')
+    navigate({ search: { query: '' } })
+  }
+
   const handleSearch = () => {
     if (query.trim() && query !== searchQuery) navigate({ search: { query } })
   }
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter') handleSearch()
   }
+
+  const isSubmitDisabled = !query
 
   return (
     <SearchContainer isRowLayout={isRowLayout}>
       <SearchInput
+        slotProps={{
+          input: {
+            endAdornment: query ? (
+              <InputAdornment position='end'>
+                <IconButton aria-label='clear search query' onClick={handleClearQuery}>
+                  <X />
+                </IconButton>
+              </InputAdornment>
+            ) : null,
+          },
+        }}
+        disabled={isLoading}
         inputRef={(input) => input && input.focus()}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
         size='small'
+        value={query}
       />
       <SearchButton
+        disabled={isSubmitDisabled}
         loading={isLoading}
         variant='contained'
         onClick={handleSearch}
         sx={{ width: '100%' }}
         loadingPosition='end'
-        endIcon={<SearchIcon size={16} />}
+        endIcon={
+          <CustomSearchIcon isDisabled={isSubmitDisabled} alt='search icon' src={searchIcon} />
+        }
       >
         Search Anything
       </SearchButton>

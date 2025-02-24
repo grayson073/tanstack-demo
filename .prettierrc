@@ -5,8 +5,9 @@
   "trailingComma": "es5",
   "tabWidth": 2,
   "printWidth": 100,
+  "arrowParens": "always",
   "organizeImportsSkipDestructiveCodeActions": true,
   "plugins": [
-    "prettier-plugin-organize-imports"
+    "prettier-plugin-organize-imports",
   ]
 }

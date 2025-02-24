@@ -1,6 +1,8 @@
 import styled from '@emotion/styled'
 import { Box } from '@mui/material'
 
+export const TRANSITION_TIME_MS = 500
+
 export const RootContainer = styled(Box)`
   align-items: center;
   display: flex;
@@ -17,11 +19,11 @@ export const SearchBarContainer = styled.div<{ isExpanded: boolean }>`
   height: 200px;
   justify-content: center;
   padding: 20px;
-  transition: all 0.5s ease;
+  transition: all ${TRANSITION_TIME_MS}ms ease;
 `
 
 export const ResultsContainer = styled.div<{ isExpanded: boolean }>`
   flex: ${({ isExpanded }) => (isExpanded ? '4' : '0')};
   opacity: ${({ isExpanded }) => (isExpanded ? '1' : '0')};
-  transition: all 0.5s ease;
+  transition: all ${TRANSITION_TIME_MS}ms ease;
 `
