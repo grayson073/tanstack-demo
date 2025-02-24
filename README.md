@@ -43,7 +43,7 @@ details on more details on chosen third-party libraries.
 ## Getting Started
 
 1. Clone the repository
-2. Rename .env.example to .env and fill in the necessary values (i.e. VITE_IMGUR_CLIENT_ID)
+2. Rename `.env.example` to `.env` and fill in the necessary values (i.e. `VITE_IMGUR_CLIENT_ID`)
 3. Install dependencies:
    ```bash
    npm install
