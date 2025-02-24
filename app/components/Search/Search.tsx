@@ -1,7 +1,7 @@
 import { IconButton, InputAdornment } from '@mui/material'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { X } from 'lucide-react'
-import { Dispatch, KeyboardEvent, SetStateAction, useState } from 'react'
+import { KeyboardEvent, useState } from 'react'
 import searchIcon from '../../assets/searchIcon.jpeg'
 import { Route as rootRoute } from '../../routes'
 import { CustomSearchIcon, SearchButton, SearchContainer, SearchInput } from './Search.styled'
@@ -9,7 +9,6 @@ import { CustomSearchIcon, SearchButton, SearchContainer, SearchInput } from './
 type SearchProps = {
   isLoading: boolean
   isRowLayout: boolean
-  onClearQuery: Dispatch<SetStateAction<boolean>>
 }
 
 export const Search = ({ isLoading, isRowLayout }: SearchProps) => {
@@ -20,11 +19,14 @@ export const Search = ({ isLoading, isRowLayout }: SearchProps) => {
 
   const handleClearQuery = () => {
     setQuery('')
-    navigate({ search: { query: '' } })
+    navigate({ search: { query: undefined } })
   }
 
   const handleSearch = () => {
-    if (query.trim() && query !== searchQuery) navigate({ search: { query } })
+    if (query.trim() && query !== searchQuery) {
+      navigate({ search: { query } })
+      setQuery('')
+    }
   }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -47,6 +49,9 @@ export const Search = ({ isLoading, isRowLayout }: SearchProps) => {
             ) : null,
           },
         }}
+        inputProps={{
+          style: { textAlign: 'center' },
+        }}
         disabled={isLoading}
         inputRef={(input) => input && input.focus()}
         onChange={(e) => setQuery(e.target.value)}
@@ -65,7 +70,7 @@ export const Search = ({ isLoading, isRowLayout }: SearchProps) => {
           <CustomSearchIcon isDisabled={isSubmitDisabled} alt='search icon' src={searchIcon} />
         }
       >
-        Search Anything
+        Free your mind
       </SearchButton>
     </SearchContainer>
   )
