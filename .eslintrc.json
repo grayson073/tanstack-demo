@@ -24,6 +24,10 @@
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
+    "prefer-destructuring": ["error", {
+      "array": true,
+      "object": true
+    }],
     "jsx-quotes": [
       "error",
       "prefer-single"
