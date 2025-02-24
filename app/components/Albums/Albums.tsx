@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { ImgurAlbum } from '../../types'
-import { AlbumContainer, AlbumImage, AlbumsContainer } from './Albums.styled'
+import { AlbumImage, GridContainer, GridItemContainer } from './Albums.styled'
 
 type AlbumProps = {
   albums: ImgurAlbum[]
@@ -48,14 +48,14 @@ export const Albums = ({ albums }: AlbumProps) => {
   if (!albums) return null
 
   return (
-    <AlbumsContainer isLoading={isLoading}>
+    <GridContainer isLoading={isLoading}>
       {albums.map((album) => (
         <Link to='/albums/$albumId' key={album.id} params={{ albumId: album.id }}>
-          <AlbumContainer key={album.id} isLoading={loadedImages.includes(album.cover)}>
+          <GridItemContainer key={album.id} isLoading={loadedImages.includes(album.cover)}>
             <AlbumImage src={album.images[0].link} alt={album.title || 'Album image'} />
-          </AlbumContainer>
+          </GridItemContainer>
         </Link>
       ))}
-    </AlbumsContainer>
+    </GridContainer>
   )
 }

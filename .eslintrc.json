@@ -7,7 +7,8 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -20,23 +21,34 @@
   "plugins": [
     "react",
     "@typescript-eslint",
-    "prettier"
+    "prettier",
+    "react-hooks"
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "prefer-destructuring": ["error", {
-      "array": true,
-      "object": true
-    }],
+    "prefer-destructuring": [
+      "error",
+      {
+        "array": true,
+        "object": true
+      }
+    ],
     "jsx-quotes": [
       "error",
       "prefer-single"
     ],
+    "react-hooks/exhaustive-deps": "error",
     "semi": [
       "error",
       "never"
     ],
-    "quotes": ["error", "single", { "avoidEscape": true }]
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ]
   },
   "settings": {
     "react": {

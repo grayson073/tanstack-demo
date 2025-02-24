@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { Box } from '@mui/material'
 
-export const AlbumsContainer = styled(Box, {
+export const GridContainer = styled(Box, {
   shouldForwardProp: (prop: string) => prop !== 'isLoading',
 })<{ isLoading?: boolean }>`
   display: grid;
@@ -13,7 +13,7 @@ export const AlbumsContainer = styled(Box, {
   transition: opacity 0.5s ease-in-out;
 `
 
-export const AlbumContainer = styled(Box, {
+export const GridItemContainer = styled(Box, {
   shouldForwardProp: (prop: string) => prop !== 'isLoading',
 })<{ isLoading?: boolean }>`
   aspect-ratio: 1 / 1;
@@ -37,4 +37,12 @@ export const AlbumImage = styled.img`
   &:hover {
     box-shadow: 0 0 10px 5px #ff7f50;
   }
+`
+
+export const AlbumContainer = styled(Box)`
+  align-self: center;
+  display: flex;
+  justify-self: center;
+  padding: 40px;
+  margin: 40px;
 `

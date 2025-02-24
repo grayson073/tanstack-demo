@@ -26,6 +26,10 @@ details on more details on chosen third-party libraries.
   cohesive development experience. They do not anticipate any more breaking changes as they move out of Beta so I wanted
   to try out the "full" TanStack experience.
 
+- **@tanstack/react-router (^1.109.2)**: A fully type-safe router for React applications that provides first-class TypeScript support and performance optimizations.
+
+- **@tanstack/react-query (^5.66.9)**: Simplifies data fetching, caching, and state management for API calls with powerful features like background updates and request deduplication.
+
 - **lucide-react (^0.475.0)**: New to me. A collection of beautiful open source icons as React components that I wanted
   to compare against MUI icons.
 
