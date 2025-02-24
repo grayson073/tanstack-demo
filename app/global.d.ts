@@ -1,4 +1,4 @@
-// Type declarations for local asset extensions
+// Type declarations
 declare module '*.jpeg' {
   const value: string
   export default value

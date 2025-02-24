@@ -7,9 +7,7 @@ export const APIRoute = createAPIFileRoute('/api/albums/$albumId')({
     try {
       const { albumId } = params
       const response = await fetch(`https://api.imgur.com/3/album/${albumId}/images`, {
-        headers: {
-          Authorization: `Client-ID ${env.imgurClientId}`,
-        },
+        headers: { Authorization: `Client-ID ${env.imgurClientId}` },
       })
       const data = await response.json()
       const albumImages = data.data

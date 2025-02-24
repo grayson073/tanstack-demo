@@ -1,6 +1,6 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
-import type { ReactNode } from 'react'
+import { QueryClient } from '@tanstack/react-query'
+import { createRootRoute } from '@tanstack/react-router'
+import { RootComponent } from '../components/Root/Root'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,35 +26,3 @@ export const Route = createRootRoute({
   component: RootComponent,
   notFoundComponent: () => <div>Not found</div>,
 })
-
-function RootComponent() {
-  return (
-    <RootDocument>
-      <QueryClientProvider client={queryClient}>
-        <Outlet />
-      </QueryClientProvider>
-    </RootDocument>
-  )
-}
-
-function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
-  const style = {
-    backgroundColor: '#000000',
-    color: '#ffffff',
-    margin: 0,
-    padding: 0,
-    height: '100%',
-  }
-
-  return (
-    <html style={style}>
-      <head>
-        <HeadContent />
-      </head>
-      <body style={style}>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  )
-}

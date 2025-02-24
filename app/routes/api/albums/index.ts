@@ -12,11 +12,7 @@ export const APIRoute = createAPIFileRoute(ALBUMS_URL)({
       const query = searchParams.get('query')
       const response = await fetch(
         `https://api.imgur.com/3/gallery/search?q_all=${query}&q_type=album&per_page=20`,
-        {
-          headers: {
-            Authorization: `Client-ID ${env.imgurClientId}`,
-          },
-        }
+        { headers: { Authorization: `Client-ID ${env.imgurClientId}` } }
       )
       const data = await response.json()
       const albums = data.data

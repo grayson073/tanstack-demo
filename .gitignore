@@ -7,3 +7,6 @@
 
 # Environment
 .env
+
+# Local data for offline testing
+/data
