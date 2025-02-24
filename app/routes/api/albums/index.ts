@@ -2,7 +2,7 @@ import { json } from '@tanstack/start'
 import { createAPIFileRoute } from '@tanstack/start/api'
 import { ALBUMS_URL } from '../../../api/utils'
 import { env } from '../../../env'
-import { filterImagesByExtension } from '../../../utils'
+import { filterImgurAlbumImagesByExtension } from '../../../utils'
 
 export const APIRoute = createAPIFileRoute(ALBUMS_URL)({
   GET: async ({ request }) => {
@@ -20,7 +20,7 @@ export const APIRoute = createAPIFileRoute(ALBUMS_URL)({
       )
       const data = await response.json()
       const albums = data.data
-      const filteredAlbums = filterImagesByExtension(albums).slice(0, 16)
+      const filteredAlbums = filterImgurAlbumImagesByExtension(albums).slice(0, 16)
       return json({ albums: filteredAlbums })
     } catch (e) {
       console.log(e)

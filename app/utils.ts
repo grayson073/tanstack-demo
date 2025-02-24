@@ -1,16 +1,14 @@
 // Consolidating various items here for the sake of the demo
 import { ImgurAlbum } from './types'
 
-// Constants
 export const TRANSITION_TIME_MS = 500
 
-// Helper Functions
 /*
  * Filters out images that don't match the desired extensions
  * @param albums - Array of ImgurAlbum objects
  * @returns Array of ImgurAlbum objects with the filtered images
  */
-export const filterImagesByExtension = (albums: ImgurAlbum[] = []) => {
+export const filterImgurAlbumImagesByExtension = (albums: ImgurAlbum[] = []) => {
   const validExtensions = ['.jpg', '.jpeg', '.png', '.gif']
 
   return albums.reduce((acc, album) => {
@@ -24,4 +22,17 @@ export const filterImagesByExtension = (albums: ImgurAlbum[] = []) => {
 
     return acc
   }, [] as ImgurAlbum[])
+}
+
+/*
+ * Filters out images that don't match the desired extensions
+ * @param images - Array of images
+ * @returns Array of images with the filtered images
+ */
+export const filterImagesByExtension = (images: ImgurAlbum['images'] = []) => {
+  const validExtensions = ['.jpg', '.jpeg', '.png', '.gif']
+
+  return images.filter((image) =>
+    validExtensions.some((ext) => image.link.toLowerCase().endsWith(ext))
+  )
 }
