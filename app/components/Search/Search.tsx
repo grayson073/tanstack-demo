@@ -19,13 +19,11 @@ export const Search = ({ isLoading, isRowLayout }: SearchProps) => {
 
   const handleClearQuery = () => {
     setQuery('')
-    navigate({ search: { query: undefined } })
   }
 
   const handleSearch = () => {
     if (query.trim() && query !== searchQuery) {
       navigate({ search: { query } })
-      setQuery('')
     }
   }
 

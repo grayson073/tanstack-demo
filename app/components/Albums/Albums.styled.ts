@@ -5,7 +5,7 @@ export const AlbumsContainer = styled(Box, {
   shouldForwardProp: (prop: string) => prop !== 'isLoading',
 })<{ isLoading?: boolean }>`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   gap: 10px;
   width: 100%;
@@ -18,8 +18,8 @@ export const AlbumContainer = styled(Box, {
 })<{ isLoading?: boolean }>`
   aspect-ratio: 1 / 1;
   border-radius: 8px;
-  height: 150px;
-  width: 150px;
+  height: 200px;
+  width: 200px;
   opacity: ${({ isLoading }) => (isLoading ? 0 : 1)};
   transform: scale(${({ isLoading }) => (isLoading ? 1 : 0.9)});
   transition:

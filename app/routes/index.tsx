@@ -3,26 +3,38 @@ import { createFileRoute, useSearch } from '@tanstack/react-router'
 import { useState } from 'react'
 import { z } from 'zod'
 import { Albums } from '../components/Albums/Albums'
-import { ResultsContainer, RootContainer, SearchBarContainer } from '../components/Root/Root.styled'
+import {
+  ResultsContainer,
+  SearchBarContainer,
+  SearchPageContainer,
+} from '../components/Root/Root.styled'
 import { Search } from '../components/Search/Search'
 import { TRANSITION_TIME_MS } from '../utils'
 import { albumsApi } from './api/albums'
 
-export const Route = createFileRoute('/')({
-  component: Root,
-  validateSearch: z.object({
-    query: z.string().optional(),
-  }),
+// Zod schema for search parameters
+const AlbumsSearchSchema = z.object({
+  query: z.string().optional(),
 })
 
-function Root() {
+export const Route = createFileRoute('/')({
+  validateSearch: AlbumsSearchSchema,
+  loader: async ({ location }) => {
+    const search = AlbumsSearchSchema.parse(location.search)
+    const albums = search.query ? await albumsApi.fetchAlbums(search.query ?? '') : []
+    return { albums }
+  },
+  component: SearchPage,
+})
+
+function SearchPage() {
   const [shouldPersistLayout, setShouldPersistLayout] = useState(false)
   const [shouldShowResults, setShouldShowResults] = useState(false)
   const searchParams = useSearch({ from: Route.id })
   const query = searchParams.query || ''
 
   const { data, isLoading } = useQuery({
-    queryKey: ['query', query], // Use query from URL, not local state
+    queryKey: ['albums', query], // Use query from URL, not local state
     queryFn: async () => {
       const albums = await albumsApi.fetchAlbums(query)
 
@@ -40,13 +52,13 @@ function Root() {
   const isExpanded = shouldPersistLayout || data?.albums?.length > 0
 
   return (
-    <RootContainer>
+    <SearchPageContainer>
       <SearchBarContainer>
         <Search isLoading={isLoading} isRowLayout={isExpanded} />
       </SearchBarContainer>
       <ResultsContainer isExpanded={isExpanded}>
         {shouldShowResults && <Albums albums={data?.albums} />}
       </ResultsContainer>
-    </RootContainer>
+    </SearchPageContainer>
   )
 }

@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { Box } from '@mui/material'
 import { TRANSITION_TIME_MS } from '../../utils'
 
-export const RootContainer = styled(Box)`
+export const SearchPageContainer = styled(Box)`
   align-items: center;
   display: flex;
   flex-direction: column;

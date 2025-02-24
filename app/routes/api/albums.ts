@@ -1,25 +1,46 @@
 import { json } from '@tanstack/start'
 import { createAPIFileRoute } from '@tanstack/start/api'
-import { vaporwaveData } from '../../../data/vaporwave'
+import { env } from '../../env'
+import { filterImagesByExtension } from '../../utils'
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-const BASE_URL = '/api'
-const ALBUMS = `${BASE_URL}/albums`
+const ALBUMS_URL =
+  typeof window !== 'undefined'
+    ? '/api/albums' // Client-side: relative URL works
+    : 'http://localhost:3000/api/albums' // Server-side: need full URL
 
 // File Routes
-export const APIRoute = createAPIFileRoute(ALBUMS)({
-  GET: async () => {
-    await delay(1500) // Simulate a delay
-    return json({
-      albums: [...vaporwaveData].slice(0, 20),
-    })
+export const APIRoute = createAPIFileRoute(ALBUMS_URL)({
+  GET: async ({ request }) => {
+    try {
+      const url = new URL(request.url)
+      const { searchParams } = url
+      const query = searchParams.get('query')
+      const response = await fetch(
+        `https://api.imgur.com/3/gallery/search?q_all=${query}&q_type=album&per_page=20`,
+        {
+          headers: {
+            Authorization: `Client-ID ${env.imgurClientId}`,
+          },
+        }
+      )
+      const data = await response.json()
+      const albums = data.data
+      const filteredAlbums = filterImagesByExtension(albums).slice(0, 16)
+      return json({ albums: filteredAlbums })
+    } catch (e) {
+      console.log(e)
+      return json({ albums: [] })
+    }
   },
 })
 
-// Helpers
+// API
 export const albumsApi = {
-  fetchAlbums: async (query: string) => {
-    const response = await fetch(`${ALBUMS}?query=${query}`)
+  fetchAlbums: async (query?: string) => {
+    if (!query) {
+      return { albums: [] }
+    }
+    const response = await fetch(`${ALBUMS_URL}?query=${query}`)
     if (!response.ok) {
       throw new Error(`Failed to fetch albums for query: ${query}`)
     }

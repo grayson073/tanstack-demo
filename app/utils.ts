@@ -3,8 +3,6 @@ import { ImgurAlbum } from './types'
 
 // Constants
 export const TRANSITION_TIME_MS = 500
-export const BASE_URL = '/api'
-export const ALBUMS = `${BASE_URL}/albums`
 
 // Helper Functions
 /*
@@ -12,7 +10,7 @@ export const ALBUMS = `${BASE_URL}/albums`
  * @param albums - Array of ImgurAlbum objects
  * @returns Array of ImgurAlbum objects with the filtered images
  */
-export const filterImagesByExtension = (albums: ImgurAlbum[]) => {
+export const filterImagesByExtension = (albums: ImgurAlbum[] = []) => {
   const validExtensions = ['.jpg', '.jpeg', '.png', '.gif']
 
   return albums.reduce((acc, album) => {
