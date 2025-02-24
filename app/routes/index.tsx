@@ -1,7 +1,8 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, useSearch } from '@tanstack/react-router'
 import { useState } from 'react'
 import { z } from 'zod'
+import { albumsApi } from '../api/utils'
 import { Albums } from '../components/Albums/Albums'
 import {
   ResultsContainer,
@@ -9,8 +10,8 @@ import {
   SearchPageContainer,
 } from '../components/Root/Root.styled'
 import { Search } from '../components/Search/Search'
+import { ImgurAlbum } from '../types'
 import { TRANSITION_TIME_MS } from '../utils'
-import { albumsApi } from './api/albums'
 
 // Zod schema for search parameters
 const AlbumsSearchSchema = z.object({
@@ -32,6 +33,7 @@ function SearchPage() {
   const [shouldShowResults, setShouldShowResults] = useState(false)
   const searchParams = useSearch({ from: Route.id })
   const query = searchParams.query || ''
+  const queryClient = useQueryClient()
 
   const { data, isLoading } = useQuery({
     queryKey: ['albums', query], // Use query from URL, not local state
@@ -43,6 +45,14 @@ function SearchPage() {
 
       // Allow layout shift to finish before rendering album images, matches CSS transition timing
       setTimeout(() => setShouldShowResults(true), TRANSITION_TIME_MS + 100)
+
+      // Pre-populate cache with individual album data
+      if (albums && albums.length > 0) {
+        albums.forEach((album: ImgurAlbum) => {
+          queryClient.setQueryData(['album', album.id], album)
+        })
+      }
+
       return albums
     },
     enabled: !!query,

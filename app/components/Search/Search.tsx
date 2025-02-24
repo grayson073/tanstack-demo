@@ -50,6 +50,7 @@ export const Search = ({ isLoading, isRowLayout }: SearchProps) => {
         inputProps={{
           style: { textAlign: 'center' },
         }}
+        placeholder='Vaporwave...'
         disabled={isLoading}
         inputRef={(input) => input && input.focus()}
         onChange={(e) => setQuery(e.target.value)}

@@ -1,14 +1,9 @@
 import { json } from '@tanstack/start'
 import { createAPIFileRoute } from '@tanstack/start/api'
-import { env } from '../../env'
-import { filterImagesByExtension } from '../../utils'
+import { ALBUMS_URL } from '../../../api/utils'
+import { env } from '../../../env'
+import { filterImagesByExtension } from '../../../utils'
 
-const ALBUMS_URL =
-  typeof window !== 'undefined'
-    ? '/api/albums' // Client-side: relative URL works
-    : 'http://localhost:3000/api/albums' // Server-side: need full URL
-
-// File Routes
 export const APIRoute = createAPIFileRoute(ALBUMS_URL)({
   GET: async ({ request }) => {
     try {
@@ -33,17 +28,3 @@ export const APIRoute = createAPIFileRoute(ALBUMS_URL)({
     }
   },
 })
-
-// API
-export const albumsApi = {
-  fetchAlbums: async (query?: string) => {
-    if (!query) {
-      return { albums: [] }
-    }
-    const response = await fetch(`${ALBUMS_URL}?query=${query}`)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch albums for query: ${query}`)
-    }
-    return response.json()
-  },
-}

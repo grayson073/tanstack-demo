@@ -12,12 +12,19 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as AlbumsAlbumIdImport } from './routes/albums/$albumId'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AlbumsAlbumIdRoute = AlbumsAlbumIdImport.update({
+  id: '/albums/$albumId',
+  path: '/albums/$albumId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,6 +39,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/albums/$albumId': {
+      id: '/albums/$albumId'
+      path: '/albums/$albumId'
+      fullPath: '/albums/$albumId'
+      preLoaderRoute: typeof AlbumsAlbumIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/albums/$albumId': typeof AlbumsAlbumIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/albums/$albumId': typeof AlbumsAlbumIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/albums/$albumId': typeof AlbumsAlbumIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/albums/$albumId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/albums/$albumId'
+  id: '__root__' | '/' | '/albums/$albumId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlbumsAlbumIdRoute: typeof AlbumsAlbumIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlbumsAlbumIdRoute: AlbumsAlbumIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +96,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/albums/$albumId"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/albums/$albumId": {
+      "filePath": "albums/$albumId.tsx"
     }
   }
 }
