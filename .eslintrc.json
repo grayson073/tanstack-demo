@@ -36,10 +36,7 @@
       "error",
       "never"
     ],
-    "quotes": [
-      "error",
-      "single"
-    ]
+    "quotes": ["error", "single", { "avoidEscape": true }]
   },
   "settings": {
     "react": {

@@ -8,5 +8,9 @@
 # Environment
 .env
 
+# Build files
+.vinxi
+.output
+
 # Local data for offline testing
 /data
