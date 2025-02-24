@@ -23,16 +23,3 @@ export const filterImgurAlbumImagesByExtension = (albums: ImgurAlbum[] = []) => 
     return acc
   }, [] as ImgurAlbum[])
 }
-
-/*
- * Filters out images that don't match the desired extensions
- * @param images - Array of images
- * @returns Array of images with the filtered images
- */
-export const filterImagesByExtension = (images: ImgurAlbum['images'] = []) => {
-  const validExtensions = ['.jpg', '.jpeg', '.png', '.gif']
-
-  return images.filter((image) =>
-    validExtensions.some((ext) => image.link.toLowerCase().endsWith(ext))
-  )
-}

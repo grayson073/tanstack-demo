@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import { albumsApi } from '../../api/utils'
 import { Route } from '../../routes/albums/$albumId/images/$imageId'
 import { ImgurImage } from '../../types'
+import { CenteredSpinner } from '../LoadingSpinners/CircularProgress'
+import { AlbumImageContainer, FullScreenImage, ImageDescription } from './Albums.styled'
 
 export const AlbumImage = () => {
   const { albumId, imageId } = Route.useParams()
@@ -13,15 +15,15 @@ export const AlbumImage = () => {
   })
 
   // Find the specific image from the album data
-  const image = album?.find((img: ImgurImage) => img.id === imageId)
+  const image = album?.images.find((img: ImgurImage) => img.id === imageId)
 
-  if (isLoading || !image) {
-    return <div>Loading image...</div>
-  }
+  if (isLoading) return <CenteredSpinner />
+  if (!image) return <>No album images found! Please go back and try again.</>
 
   return (
-    <div>
-      <img src={image.link} alt={image.description || 'image'} />
-    </div>
+    <AlbumImageContainer>
+      {image.description && <ImageDescription>{image.description}</ImageDescription>}
+      <FullScreenImage src={image.link} alt={image.description || 'image'} />
+    </AlbumImageContainer>
   )
 }

@@ -39,10 +39,33 @@ export const AlbumImage = styled.img`
   }
 `
 
+export const ImageDescription = styled.h1`
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+`
+
 export const AlbumContainer = styled(Box)`
   align-self: center;
   display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
   justify-self: center;
   padding: 40px;
-  margin: 40px;
+`
+
+export const AlbumImageContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 40px 40px 40px;
+`
+
+export const FullScreenImage = styled.img`
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+  min-height: calc(100vh - 150px);
+  max-width: 100%;
+  object-fit: contain;
 `

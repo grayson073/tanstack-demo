@@ -1,9 +1,14 @@
 import { QueryClientProvider } from '@tanstack/react-query'
-import { HeadContent, Outlet, Scripts } from '@tanstack/react-router'
+import { HeadContent, Outlet, Scripts, useRouterState } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
 import { queryClient } from '../../routes/__root'
+import { BackToSearch } from '../Navigation/BackToSearch'
 
 const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
+  const routerState = useRouterState()
+  const { pathname } = routerState.location
+  const shouldShowBackButton = pathname !== '/'
+
   const style = {
     backgroundColor: '#000000',
     color: '#ffffff',
@@ -18,6 +23,7 @@ const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
         <HeadContent />
       </head>
       <body style={style}>
+        {shouldShowBackButton && <BackToSearch />}
         {children}
         <Scripts />
       </body>

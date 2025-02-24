@@ -15,7 +15,7 @@ export const albumsApi = {
     return response.json()
   },
   fetchAlbumById: async (albumId: string) => {
-    const response = await fetch(`${ALBUMS_URL}/${albumId}/images`)
+    const response = await fetch(`${ALBUMS_URL}/${albumId}`)
     if (!albumId || !response.ok) {
       throw new Error(`Failed to fetch album with ID: ${albumId}`)
     }
